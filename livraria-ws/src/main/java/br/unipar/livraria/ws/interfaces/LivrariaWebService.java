@@ -8,6 +8,7 @@ import br.unipar.livraria.ws.model.Livro;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,7 @@ public interface LivrariaWebService {
                  @WebParam(header = true) String senha);
     
     @WebMethod
-    Livro inserir(Livro livro);
+    Livro inserir(Livro livro) throws SQLException;
     
     @WebMethod
     Livro atualizar(Livro livro);

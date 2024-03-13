@@ -6,6 +6,9 @@ package br.unipar.livraria.ws.model;
 
 import java.util.Date;
 
+
+
+
 /**
  *
  * @author andersonbosing

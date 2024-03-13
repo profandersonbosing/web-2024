@@ -6,6 +6,7 @@ package br.unipar.livraria.ws.services;
 
 import br.unipar.livraria.ws.model.Livro;
 import br.unipar.livraria.ws.repositories.LivroRepository;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class LivroService {
         return livroRepository.findById(id);
     }
     
-    public Livro insert(Livro livro) {
+    public Livro insert(Livro livro) throws SQLException {
         LivroRepository livroRepository = new LivroRepository();
         return livroRepository.insert(livro);
     }

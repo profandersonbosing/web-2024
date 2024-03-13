@@ -8,6 +8,7 @@ import br.unipar.livraria.ws.interfaces.LivrariaWebService;
 import br.unipar.livraria.ws.model.Livro;
 import br.unipar.livraria.ws.services.LivroService;
 import jakarta.jws.WebService;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -48,7 +49,7 @@ public class LivrariaWebServiceImp implements LivrariaWebService {
     }
 
     @Override
-    public Livro inserir(Livro livro) {
+    public Livro inserir(Livro livro) throws SQLException {
         LivroService livroService = new LivroService();
         return livroService.insert(livro);
     }
