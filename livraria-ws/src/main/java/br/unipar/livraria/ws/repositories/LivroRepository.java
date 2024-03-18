@@ -65,7 +65,6 @@ public class LivroRepository {
             rs.next();
             livro.setId(rs.getInt(1));
             
-            //conn.commit();
         } finally {
             if (rs != null)
                 rs.close();
