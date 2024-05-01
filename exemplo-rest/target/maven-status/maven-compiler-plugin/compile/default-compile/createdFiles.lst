@@ -1,0 +1,5 @@
+br/unipar/exemplo/rest/ExemploRestApplication.class
+br/unipar/exemplo/rest/dto/ClienteFindAllResponse.class
+br/unipar/exemplo/rest/models/Cliente.class
+br/unipar/exemplo/rest/controllers/ClienteController.class
+br/unipar/exemplo/rest/dto/ClienteRequest.class
