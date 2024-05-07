@@ -2,28 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.unipar.exemplo.rest.models;
-
-import br.unipar.exemplo.rest.dto.ClienteRequest;
+package br.unipar.exemplo.rest.dto;
 
 /**
  *
  * @author andersonbosing
  */
-public class Cliente {
+public class ClienteResponse {
     
     private int id;
     private String nome;
     private String cpf;
-
-    public Cliente(int id, String nome, String cpf) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-    }
-
-    public Cliente() {
-    }
 
     public int getId() {
         return id;
@@ -48,11 +37,5 @@ public class Cliente {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    public static Cliente resquestToCliente(ClienteRequest dto) {
-        return new Cliente(0, dto.getNome(), dto.getCpf());
-    }
-    
-    
     
 }
