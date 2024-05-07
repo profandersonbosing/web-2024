@@ -38,6 +38,9 @@ import javax.naming.NamingException;
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteController {
     
+    private static final Logger LOGGER = 
+            Logger.getLogger(ClienteController.class.getName());
+    
     //C @Post
     //R @Get
     //U @Put
@@ -60,6 +63,8 @@ public class ClienteController {
         
         } catch(ValidacaoException validacaoException) {
             
+            LOGGER.log(Level.INFO, validacaoException.toString());
+            
             ExceptionResponse response = 
                     new ExceptionResponse(validacaoException.getMessage(), 
                             new Date(), 
@@ -71,6 +76,8 @@ public class ClienteController {
             
         } catch (SQLException | NamingException ex) {
             
+            LOGGER.log(Level.SEVERE, ex.toString());
+            
             ExceptionResponse response = 
                     new ExceptionResponse("Ops, algo ocorreu de errado, tente novamente mais tarde", 
                             new Date(), 
@@ -81,6 +88,8 @@ public class ClienteController {
                     status(Response.Status.INTERNAL_SERVER_ERROR).
                     entity(response).build();
         } catch (Exception ex) {
+            
+            LOGGER.log(Level.SEVERE, ex.toString());
             
             ExceptionResponse response = 
                     new ExceptionResponse("Erro desconhecido entre em contato com o fornecedor", 
