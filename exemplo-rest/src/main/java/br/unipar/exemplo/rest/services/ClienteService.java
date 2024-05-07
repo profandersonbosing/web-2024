@@ -8,6 +8,7 @@ import br.unipar.exemplo.rest.exceptions.ValidacaoException;
 import br.unipar.exemplo.rest.models.Cliente;
 import br.unipar.exemplo.rest.repositories.ClienteRepository;
 import java.sql.SQLException;
+import java.util.List;
 import javax.naming.NamingException;
 
 /**
@@ -21,6 +22,53 @@ public class ClienteService {
             SQLException, 
             NamingException {
         
+        validateInsertOrUpdate(cliente);
+        
+        return new ClienteRepository().insert(cliente);
+        
+    }
+    
+    public Cliente update(Cliente cliente) throws 
+            ValidacaoException, 
+            SQLException, 
+            NamingException {
+        
+        validateInsertOrUpdate(cliente);
+        
+        return new ClienteRepository().update(cliente);
+        
+    }
+    
+    public void delete(int id) throws 
+            ValidacaoException, 
+            SQLException, 
+            NamingException {
+        
+        if (id == 0) 
+            throw new ValidacaoException("Informe o Cliente a ser Deletado");
+        
+        new ClienteRepository().delete(id);
+        
+    }
+    
+    public List<Cliente> findAll() throws 
+            SQLException, 
+            NamingException {
+        
+        return new ClienteRepository().findAll();
+        
+    }
+    
+    public Cliente findById(int id) throws 
+            SQLException, 
+            NamingException {
+        
+        return new ClienteRepository().findById(id);
+        
+    }
+    
+    private void validateInsertOrUpdate(Cliente cliente) throws ValidacaoException {
+        
         if (cliente.getCpf().isEmpty())
             throw new ValidacaoException("Cpf não pode ser vazio");
         
@@ -29,9 +77,6 @@ public class ClienteService {
         
         if (cliente.getNome().trim().isEmpty())
             throw new ValidacaoException("Nome não pode ser vazio");
-        
-        return new ClienteRepository().insert(cliente);
-        
     }
     
 }
