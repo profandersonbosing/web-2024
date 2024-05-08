@@ -3,6 +3,7 @@ package br.unipar.exemplo.rest.controllers;
 import br.unipar.exemplo.rest.dto.ClienteFindAllResponse;
 import br.unipar.exemplo.rest.dto.ClienteRequest;
 import br.unipar.exemplo.rest.dto.ExceptionResponse;
+import br.unipar.exemplo.rest.exceptions.ObjetoNaoEncontradoException;
 import br.unipar.exemplo.rest.exceptions.ValidacaoException;
 import br.unipar.exemplo.rest.models.Cliente;
 import br.unipar.exemplo.rest.services.ClienteService;
@@ -79,7 +80,8 @@ public class ClienteController {
             LOGGER.log(Level.SEVERE, ex.toString());
             
             ExceptionResponse response = 
-                    new ExceptionResponse("Ops, algo ocorreu de errado, tente novamente mais tarde", 
+                    new ExceptionResponse("Ops, algo ocorreu de errado, "
+                            + "tente novamente mais tarde", 
                             new Date(), 
                             request.getRequestURI(), 
                             Response.Status.INTERNAL_SERVER_ERROR.toString());
@@ -106,8 +108,57 @@ public class ClienteController {
     
     @GET
     @Path("{id}")
-    public Cliente findById(@PathParam("id") int id) {
-        return new Cliente(id, "Professor Anderson", "098098098098");
+    public Response findById(@PathParam("id") int id,
+            @Context HttpServletRequest request) {
+        
+        try {
+            
+            ClienteService clienteService = new ClienteService();
+            Cliente cliente = clienteService.findById(id);
+            
+            return Response.ok(cliente).build();
+                    
+        } catch (ValidacaoException ex) {
+            LOGGER.log(Level.INFO, ex.getMessage());
+            ExceptionResponse exceptionResponse =
+                    new ExceptionResponse(
+                            ex.getMessage(), 
+                            new Date(), 
+                            request.getRequestURI(), 
+                            Response.Status.BAD_REQUEST.toString());
+            
+            return Response.
+                    status(Response.Status.BAD_REQUEST).
+                    entity(exceptionResponse).build();
+            
+        } catch (ObjetoNaoEncontradoException ex) {
+            LOGGER.log(Level.INFO, ex.getMessage());
+            ExceptionResponse exceptionResponse = 
+                    new ExceptionResponse(
+                            ex.getMessage(), 
+                            new Date(), 
+                            request.getRequestURI(), 
+                            Response.Status.NOT_FOUND.toString());
+            
+            return Response.
+                    status(Response.Status.NOT_FOUND).
+                    entity(exceptionResponse).
+                    build();
+        } catch(Exception ex)  {
+            LOGGER.log(Level.SEVERE, ex.toString());
+            
+            ExceptionResponse response = 
+                    new ExceptionResponse("Ops, algo ocorreu de errado, "
+                            + "tente novamente mais tarde", 
+                            new Date(), 
+                            request.getRequestURI(), 
+                            Response.Status.INTERNAL_SERVER_ERROR.toString());
+            
+            return Response.
+                    status(Response.Status.INTERNAL_SERVER_ERROR).
+                    entity(response).build();
+        } 
+        
     }
     
     @GET
@@ -133,6 +184,10 @@ public class ClienteController {
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") int id){
+        //SUCESSO 204
+        //DELETAR RECURSO QUE NÃO EXISTE - 404
+        //VALIDACOES DE NEGOCIO 400
+        //SE EXPLODIR ALGUMA COISA INTERNAL SERVER ERROR
     }
     
 }

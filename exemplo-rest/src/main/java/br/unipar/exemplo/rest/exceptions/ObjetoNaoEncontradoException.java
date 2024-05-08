@@ -1,0 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package br.unipar.exemplo.rest.exceptions;
+
+/**
+ *
+ * @author andersonbosing
+ */
+public class ObjetoNaoEncontradoException extends Exception {
+
+    public ObjetoNaoEncontradoException(String message) {
+        super(message);
+    }
+    
+}

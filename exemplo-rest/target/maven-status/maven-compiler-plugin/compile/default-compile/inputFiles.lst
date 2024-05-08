@@ -6,6 +6,7 @@
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/models/Cliente.java
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/controllers/ClienteController.java
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/dto/ClienteResponse.java
+/Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/exceptions/ObjetoNaoEncontradoException.java
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/services/ClienteService.java
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/dto/ExceptionResponse.java
 /Users/andersonbosing/NetBeansProjects/exemplo-rest/src/main/java/br/unipar/exemplo/rest/repositories/ClienteRepository.java

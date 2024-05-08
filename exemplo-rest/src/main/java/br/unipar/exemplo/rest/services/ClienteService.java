@@ -4,6 +4,7 @@
  */
 package br.unipar.exemplo.rest.services;
 
+import br.unipar.exemplo.rest.exceptions.ObjetoNaoEncontradoException;
 import br.unipar.exemplo.rest.exceptions.ValidacaoException;
 import br.unipar.exemplo.rest.models.Cliente;
 import br.unipar.exemplo.rest.repositories.ClienteRepository;
@@ -61,9 +62,21 @@ public class ClienteService {
     
     public Cliente findById(int id) throws 
             SQLException, 
-            NamingException {
+            NamingException,
+            ValidacaoException,
+            ObjetoNaoEncontradoException {
         
-        return new ClienteRepository().findById(id);
+        if (id == 0) {
+            throw new ValidacaoException("Informe o Código para pesquisar");
+        }
+        
+        Cliente c = new ClienteRepository().findById(id);
+        
+        if (c.getId() == 0 && c.getNome() == null) {
+            throw new ObjetoNaoEncontradoException("Recurso não encontrado");
+        }
+        
+        return c;
         
     }
     

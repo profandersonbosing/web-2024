@@ -2,11 +2,11 @@ br/unipar/exemplo/rest/repositories/ClienteRepository.class
 br/unipar/exemplo/rest/models/Cliente.class
 br/unipar/exemplo/rest/dto/ExceptionResponse.class
 br/unipar/exemplo/rest/ExemploRestApplication.class
-br/unipar/exemplo/rest/dto/TesteRecord.class
 br/unipar/exemplo/rest/infraestructure/ConnectionFactory.class
 br/unipar/exemplo/rest/dto/ClienteResponse.class
 br/unipar/exemplo/rest/exceptions/ValidacaoException.class
 br/unipar/exemplo/rest/services/ClienteService.class
+br/unipar/exemplo/rest/exceptions/ObjetoNaoEncontradoException.class
 br/unipar/exemplo/rest/dto/ClienteFindAllResponse.class
 br/unipar/exemplo/rest/controllers/ClienteController.class
 br/unipar/exemplo/rest/dto/ClienteRequest.class
