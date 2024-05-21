@@ -8,48 +8,49 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
+    public Cliente getById(Long id) {
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        return cliente.orElse(null);
+    }
+    public List<Cliente> getAll() {
+        return clienteRepository.findAll();
+    }
+
     public Cliente insert(Cliente cliente) throws ApiException {
-        validarAtributos(cliente);
+        validate(cliente);
         clienteRepository.save(cliente);
         return cliente;
     }
-    public Cliente update(Cliente cliente) throws ApiException {
-        validarAtributos(cliente);
-        clienteRepository.save(cliente);
-        return cliente;
-    }
-
-    public void delete(Long id) throws ApiException {
-        clienteRepository.deleteById(id);
-    }
-
-    private void validarAtributos(Cliente cliente) throws ApiException {
-        if (cliente.getNome() == null) {
-            throw new ApiException("O nome é Obrigatório");
+    private void validate(Cliente cliente) throws ApiException {
+        if (cliente.getNome() == null ){
+            throw new ApiException("Nome é obrigatório");
         }
-
-        if (cliente.getNome().length() > 60) {
-            throw new ApiException("O tamanho do nome deve " +
-                    "ser menor do que 60 caracteres");
-        }
-
-        if (cliente.getNome().length() < 10) {
-            throw new ApiException("O tamanho do nome deve ser " +
-                    "maior do que 10 caracteres");
-        }
-
         if (cliente.getNome().isEmpty()) {
-            throw new ApiException("O nome é obrigatório");
+            throw new ApiException("Nome é obrigatório");
+        }
+        if (cliente.getNome().length() > 60){
+            throw new ApiException("Nome deve ter no máximo 60 caracteres");
+        }
+        if (cliente.getNome().length() < 30){
+            throw new ApiException("Nome deve ter no mínimo 30 caracteres");
         }
 
-        //Demais validações
+    }
+    public Cliente update(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
 
+    public void delete(Long id) {
+        clienteRepository.deleteById(id);
     }
 
 }
