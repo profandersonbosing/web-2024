@@ -19,30 +19,40 @@ public class ClienteService {
 
     public Cliente getById(Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
+
+//        if (cliente.isPresent()) {
+//            return cliente.get();
+//        }
+
         return cliente.orElse(null);
     }
     public List<Cliente> getAll() {
         return clienteRepository.findAll();
     }
 
-    public Cliente insert(Cliente cliente) throws ApiException {
+
+    public List<Cliente> findByEstadoNome(String estadoNome) {
+        return clienteRepository.findByEnderecoCidadeEstadoNome(estadoNome);
+    }
+
+    public Cliente insert(Cliente cliente) {
         validate(cliente);
         clienteRepository.save(cliente);
         return cliente;
     }
-    private void validate(Cliente cliente) throws ApiException {
-        if (cliente.getNome() == null ){
-            throw new ApiException("Nome é obrigatório");
-        }
-        if (cliente.getNome().isEmpty()) {
-            throw new ApiException("Nome é obrigatório");
-        }
-        if (cliente.getNome().length() > 60){
-            throw new ApiException("Nome deve ter no máximo 60 caracteres");
-        }
-        if (cliente.getNome().length() < 30){
-            throw new ApiException("Nome deve ter no mínimo 30 caracteres");
-        }
+    private void validate(Cliente cliente) {
+//        if (cliente.getNome() == null ){
+//            throw new ApiException("Nome é obrigatório");
+//        }
+//        if (cliente.getNome().isEmpty()) {
+//            throw new ApiException("Nome é obrigatório");
+//        }
+//        if (cliente.getNome().length() > 60){
+//            throw new ApiException("Nome deve ter no máximo 60 caracteres");
+//        }
+//        if (cliente.getNome().length() < 30){
+//            throw new ApiException("Nome deve ter no mínimo 30 caracteres");
+//        }
 
     }
     public Cliente update(Cliente cliente) {
