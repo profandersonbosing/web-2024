@@ -3,6 +3,10 @@ package br.unipar.springrest.controllers;
 import br.unipar.springrest.domain.Cliente;
 import br.unipar.springrest.exceptions.ApiException;
 import br.unipar.springrest.services.ClienteService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +27,15 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ok", content =
+                    { @Content(mediaType = "application/json", schema =
+                    @Schema(implementation = Cliente.class)) }),
+            @ApiResponse(responseCode = "400", description = "ID invalido informado"),
+            @ApiResponse(responseCode = "404", description = "Cliente não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content =
+                    { @Content(mediaType = "application/json", schema =
+                    @Schema(implementation = ApiException.class)) }) })
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getById(@PathVariable Long id) {
         //ResponseEntity - Manipula elemtento da Resposta
